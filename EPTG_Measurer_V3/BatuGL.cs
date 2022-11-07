@@ -23,7 +23,7 @@ namespace BatuGL
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc((BlendingFactor) BlendingFactorSrc.SrcAlpha, (BlendingFactor) BlendingFactorDest.OneMinusSrcAlpha);
 
-            GL.ClearColor(Color.Black);
+            GL.ClearColor(Color.White);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Viewport(refGLControl.Size);
@@ -75,7 +75,7 @@ namespace BatuGL
 
             public VAO_TRIANGLES()
             {
-                color = Color.Red;
+                color = Color.Green;
                 scale = new float[3] { 1.0f, 1.0f, 1.0f };
             }
 

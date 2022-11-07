@@ -36,6 +36,7 @@
             this.tPNormal = new System.Windows.Forms.TabPage();
             this.pBNormal = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cBScreenshots = new System.Windows.Forms.CheckBox();
             this.cBOkay = new System.Windows.Forms.CheckBox();
             this.cBHard = new System.Windows.Forms.CheckBox();
             this.cBEasy = new System.Windows.Forms.CheckBox();
@@ -125,6 +126,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.Controls.Add(this.cBScreenshots);
             this.panel1.Controls.Add(this.cBOkay);
             this.panel1.Controls.Add(this.cBHard);
             this.panel1.Controls.Add(this.cBEasy);
@@ -143,6 +145,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(251, 644);
             this.panel1.TabIndex = 2;
+            // 
+            // cBScreenshots
+            // 
+            this.cBScreenshots.AutoSize = true;
+            this.cBScreenshots.Location = new System.Drawing.Point(12, 203);
+            this.cBScreenshots.Name = "cBScreenshots";
+            this.cBScreenshots.Size = new System.Drawing.Size(113, 17);
+            this.cBScreenshots.TabIndex = 14;
+            this.cBScreenshots.Text = "Take Screenshots";
+            this.cBScreenshots.UseVisualStyleBackColor = true;
             // 
             // cBOkay
             // 
@@ -299,8 +311,9 @@
             // startTutorialToolStripMenuItem
             // 
             this.startTutorialToolStripMenuItem.Name = "startTutorialToolStripMenuItem";
-            this.startTutorialToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.startTutorialToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startTutorialToolStripMenuItem.Text = "Start Tutorial";
+            this.startTutorialToolStripMenuItem.Click += new System.EventHandler(this.startTutorialToolStripMenuItem_Click);
             // 
             // GL_Monitor
             // 
@@ -410,6 +423,7 @@
         private System.Windows.Forms.Panel pnl4;
         private System.Windows.Forms.Label lblIFU;
         private System.Windows.Forms.Button btnLoadSTL;
+        private System.Windows.Forms.CheckBox cBScreenshots;
     }
 }
 

@@ -125,9 +125,16 @@ namespace EPTG_Measurer_V3
 
         private void LoadSTL()
         {
-            string[] filesModels = Directory.GetFiles(Path.Combine(directory, "Models"), "*.stl");
-            string model = filesModels.First(x => Path.GetFileName(x).Split('_')[0] == images[ImageIndex].Identifier);
-            ReadSelectedFile(model);
+            try
+            {
+                string[] filesModels = Directory.GetFiles(Path.Combine(directory, "Models"), "*.stl");
+                string model = filesModels.First(x => Path.GetFileName(x).Split('_')[0] == images[ImageIndex].Identifier);
+                ReadSelectedFile(model);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Couldn't show stl. Resaon: "+ ex.Message);
+            }
         }
     }
 }

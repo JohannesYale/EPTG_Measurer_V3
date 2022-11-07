@@ -15,6 +15,7 @@ using STL_Tools;
 using OpenTK.Graphics.OpenGL;
 using System.IO;
 using System.Xml.Linq;
+using System.Drawing.Imaging;
 
 namespace EPTG_Measurer_V3
 {
@@ -102,6 +103,29 @@ namespace EPTG_Measurer_V3
         {
             btnRestart.Visible = false;
             btnSave.Visible = false;
+            try
+            {
+                if (cBScreenshots.Checked)
+                {
+                    string screenshotpath = Path.Combine(directory, "Screenshots_" + tBEvaluator.Text);
+                    Directory.CreateDirectory(screenshotpath);
+                    using (Bitmap bitmap = new Bitmap(pBFemur.Width, pBFemur.Height))
+                    {
+                        using (Graphics g = Graphics.FromImage(bitmap))
+                        {
+                            Rectangle r = this.RectangleToScreen(this.ClientRectangle);
+                            int titleHeight = r.Top - this.Top;
+                            int borderWidth = r.Left - this.Left;
+                            g.CopyFromScreen(new Point(this.Left +tabControl1.Left + borderWidth, this.Top + tabControl1.Top + titleHeight), Point.Empty, pBFemur.Size);
+                            bitmap.Save(Path.Combine(screenshotpath, images[ImageIndex].Identifier + ".png"), ImageFormat.Png);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Screenshot couldn't be saved");
+            }
 
             cBEasy.Visible = false;
             cBOkay.Visible = false;
@@ -152,6 +176,11 @@ namespace EPTG_Measurer_V3
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Redraw();
+        }
+
+        private void startTutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tutorial not implemented");
         }
     }
 }
