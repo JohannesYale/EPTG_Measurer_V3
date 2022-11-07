@@ -66,9 +66,10 @@ namespace EPTG_Measurer_V3
                                 errors++;
                             }
                         }
-
-                        MessageBox.Show(errors.ToString() + " image(s) were not loaded.");
-
+                        if (errors > 0)
+                        {
+                            MessageBox.Show(errors.ToString() + " image(s) were not loaded.");
+                        }
                         demographicsGetter = new DemographicsGetter(directory + @"\Demographics.txt");
 
                         Random rng = new Random();
@@ -225,7 +226,7 @@ namespace EPTG_Measurer_V3
                         DrawCircle(g, p, epiCondyle1, 6);
                         DrawCircle(g, p, epiCondyle2, 6);
                     }
-                    if( points.Count != 0 && ProcessState.Endoint == process.CurrentState)
+                    if (points.Count != 0 && ProcessState.Endoint == process.CurrentState)
                     {
                         Brush p = new SolidBrush(Color.Blue);
                         DrawCircle(g, p, points[0], 6);
