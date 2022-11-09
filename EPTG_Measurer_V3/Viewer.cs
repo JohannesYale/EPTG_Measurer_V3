@@ -60,8 +60,8 @@ namespace EPTG_Measurer_V3
                 1.0f };
             float[] specular_0 = new float[] { -1.0f, -1.0f, 1.0f, 1.0f };
             float[] specular_1 = new float[] { 1.0f, -1.0f, 1.0f, 1.0f };
-            float[] lightPos_0 = new float[] { 1000f, 1000f, -200.0f, 0.0f };
-            float[] lightPos_1 = new float[] { -1000f, 1000f, -200.0f, 0.0f };
+            float[] lightPos_0 = new float[] { 0f, 500f, 500f, 0f };
+            float[] lightPos_1 = new float[] { 0f, 1000f, 1000f, 0f };
 
             GL.Enable(EnableCap.Lighting);
             /* light 0 */

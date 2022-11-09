@@ -23,7 +23,7 @@ namespace BatuGL
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc((BlendingFactor) BlendingFactorSrc.SrcAlpha, (BlendingFactor) BlendingFactorDest.OneMinusSrcAlpha);
 
-            GL.ClearColor(Color.White);
+            GL.ClearColor(Color.LightGray);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Viewport(refGLControl.Size);

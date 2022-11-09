@@ -50,6 +50,7 @@ namespace EPTG_Measurer_V3
             {
                 pBFemur.Image = images[ImageIndex].ShapeImage;
                 pBNormal.Image = images[ImageIndex].NormalImage;
+                LoadSTL();
                 lblImages.Text = "Image " + (ImageIndex + 1) + " of " + images.Count;
                 pBFemur.Refresh();
                 lblIFU.Text = "Click on the apex of the medial/lateral condyles (one point each).";
@@ -65,7 +66,7 @@ namespace EPTG_Measurer_V3
 
         private void btnLoadSTL_Click(object sender, EventArgs e)
         {
-            LoadSTL();
+          
         }
 
         private void pBFemur_MouseDown(object sender, MouseEventArgs e)
