@@ -131,7 +131,6 @@ namespace EPTG_Measurer_V3
             cBEasy.Visible = false;
             cBOkay.Visible = false;
             cBHard.Visible = false;
-            txtComments.Text = "";
             points.Clear();
             var demo = demographicsGetter.GetDemographic(images[ImageIndex].Identifier);
 
@@ -161,7 +160,7 @@ namespace EPTG_Measurer_V3
             File.AppendAllText(directory + @"\MeasurementResult.txt", line);
             ImageIndex++;
 
-
+            txtComments.Text = "";
             if (ImageIndex == images.Count)
             {
                 lblIFU.Text = "Done!";
