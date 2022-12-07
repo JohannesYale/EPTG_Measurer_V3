@@ -70,15 +70,22 @@ namespace EPTG_Measurer_V3
                         {
                             MessageBox.Show(errors.ToString() + " image(s) were not loaded.");
                         }
-                        demographicsGetter = new DemographicsGetter(directory + @"\Demographics.txt");
-
+                        try
+                        {
+                            demographicsGetter = new DemographicsGetter(directory + @"\Demographics.txt");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Demographics document not available or faulty. Ex " + ex.Message,);
+                            throw ex;
+                        }
                         Random rng = new Random();
                         int n = images.Count;
                         while (n > 1)
                         {
                             n--;
                             int k = rng.Next(n + 1);
-                            var value = images[k];
+                            ImageObject value = images[k];
                             images[k] = images[n];
                             images[n] = value;
                         }
@@ -139,17 +146,25 @@ namespace EPTG_Measurer_V3
                     }
                     if (points.Count == 1)
                     {
-                        trochlea = points[0];
-                        points.Clear();
-                        double k = -((double)(epiCondyle2.Y - epiCondyle1.Y)) / ((double)(epiCondyle2.X - epiCondyle1.X));
-                        slopeNormal = 1 / k;
-                        Point first = new Point(trochlea.X + 50, Convert.ToInt32(trochlea.Y + 1 / k * 50));
-                        Point second = new Point(trochlea.X - 50, Convert.ToInt32(trochlea.Y - 1 / k * 50));
-                        Graphics g = pBFemur.CreateGraphics();
-                        Pen p = new Pen(Color.Red);
-                        g.DrawLine(p, first, second);
-                        lblIFU.Text = "Click on the medial and lateral ridge (one point each)";
-                        process.MoveNext(Command.Confirm);
+                        try
+                        {
+                            trochlea = points[0];
+                            points.Clear();
+                            double k = -((double)(epiCondyle2.Y - epiCondyle1.Y)) / ((double)(epiCondyle2.X - epiCondyle1.X));
+                            slopeNormal = 1 / k;
+                            Point first = new Point(trochlea.X + 50, Convert.ToInt32(trochlea.Y + 1 / k * 50));
+                            Point second = new Point(trochlea.X - 50, Convert.ToInt32(trochlea.Y - 1 / k * 50));
+                            Graphics g = pBFemur.CreateGraphics();
+                            Pen p = new Pen(Color.Red);
+                            g.DrawLine(p, first, second);
+                            lblIFU.Text = "Click on the medial and lateral ridge (one point each)";
+                            process.MoveNext(Command.Confirm);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Division through zero, please restart.");
+                            Restart();
+                        }
                     }
                     break;
                 case (ProcessState.Endoint):
