@@ -37,6 +37,7 @@ namespace EPTG_Measurer_V3
         {
             InitializeComponent();
             Init();
+            SetDpiAwareness();
         }
 
         private void Measurer_Load(object sender, EventArgs e)
@@ -109,12 +110,12 @@ namespace EPTG_Measurer_V3
                 if (cBScreenshots.Checked)
                 {
                     string screenshotpath = Path.Combine(directory, "Screenshots_" + tBEvaluator.Text);
+                    Rectangle bounds = this.Bounds;
                     Directory.CreateDirectory(screenshotpath);
-                    using (Bitmap bitmap = new Bitmap(pBFemur.Width, pBFemur.Height))
+                    using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
                     {
                         using (Graphics g = Graphics.FromImage(bitmap))
                         {
-                            Rectangle bounds = this.Bounds;
                             g.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
                             bitmap.Save(Path.Combine(screenshotpath, images[ImageIndex].Identifier + ".png"), ImageFormat.Png);
                         }

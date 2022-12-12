@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace EPTG_Measurer_V3
 {
@@ -27,6 +28,16 @@ namespace EPTG_Measurer_V3
         double slopeNormal;
         double angle;
         DemographicsGetter demographicsGetter;
+
+        private enum ProcessDPIAwareness
+        {
+            ProcessDPIUnaware = 0,
+            ProcessSystemDPIAware = 1,
+            ProcessPerMonitorDPIAware = 2
+        }
+
+        [DllImport("shcore.dll")]
+        private static extern int SetProcessDpiAwareness(ProcessDPIAwareness value);
 
         private void GetImages(object sender)
         {
@@ -272,6 +283,20 @@ namespace EPTG_Measurer_V3
                     DrawCircle(g, b, ridge2, 6);
                 }
 
+            }
+        }
+
+        private static void SetDpiAwareness()
+        {
+            try
+            {
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    SetProcessDpiAwareness(ProcessDPIAwareness.ProcessPerMonitorDPIAware);
+                }
+            }
+            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
+            {
             }
         }
 
