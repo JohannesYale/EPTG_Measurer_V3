@@ -76,7 +76,7 @@ namespace EPTG_Measurer_V3
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Demographics document not available or faulty. Ex " + ex.Message,);
+                            MessageBox.Show("Demographics document not available or faulty. Ex " + ex.Message);
                             throw ex;
                         }
                         Random rng = new Random();

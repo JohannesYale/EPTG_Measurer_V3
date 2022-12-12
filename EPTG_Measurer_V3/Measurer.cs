@@ -66,7 +66,7 @@ namespace EPTG_Measurer_V3
 
         private void btnLoadSTL_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void pBFemur_MouseDown(object sender, MouseEventArgs e)
@@ -114,16 +114,14 @@ namespace EPTG_Measurer_V3
                     {
                         using (Graphics g = Graphics.FromImage(bitmap))
                         {
-                            Rectangle r = this.RectangleToScreen(this.ClientRectangle);
-                            int titleHeight = r.Top - this.Top;
-                            int borderWidth = r.Left - this.Left;
-                            g.CopyFromScreen(new Point(this.Left +tabControl1.Left + borderWidth, this.Top + tabControl1.Top + titleHeight), Point.Empty, pBFemur.Size);
+                            Rectangle bounds = this.Bounds;
+                            g.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
                             bitmap.Save(Path.Combine(screenshotpath, images[ImageIndex].Identifier + ".png"), ImageFormat.Png);
                         }
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Screenshot couldn't be saved");
             }
