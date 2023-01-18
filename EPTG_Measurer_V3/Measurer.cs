@@ -164,6 +164,7 @@ namespace EPTG_Measurer_V3
             {
                 lblIFU.Text = "Done!";
                 btnExit.Visible = true;
+                btnSave.Visible = false;
                 process.MoveNext(Command.Done);
             }
             else

@@ -205,6 +205,11 @@ namespace EPTG_Measurer_V3
                             cBOkay.Visible = true;
                             process.MoveNext(Command.Confirm);
                             points.Clear();
+                            if(angle == double.NaN)
+                            {
+                                MessageBox.Show("Division through 0 occured (coincidence), please redo.");
+                                Restart();
+                            }
                         }
                         catch
                         {
