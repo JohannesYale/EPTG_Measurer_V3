@@ -114,6 +114,7 @@ namespace EPTG_Measurer_V3
             orb.Reset_Orientation();
             orb.Reset_Pan();
             orb.Reset_Scale();
+            
             if (stlReader.Get_Process_Error())
             {
                 modelVAO = null;
@@ -130,6 +131,7 @@ namespace EPTG_Measurer_V3
                 string[] filesModels = Directory.GetFiles(Path.Combine(directory, "Models"), "*.stl");
                 string model = filesModels.First(x => Path.GetFileName(x).Split('_')[0] == images[ImageIndex].Identifier);
                 ReadSelectedFile(model);
+                orb.firstOrbiterUpdate = true;
             }
             catch(Exception ex)
             {

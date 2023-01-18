@@ -47,6 +47,7 @@ namespace Mouse_Orbit
         Vector3 vdMouse = new Vector3(0, 0, 0);
         float ortbitSensitivity = 0.2f;
         bool enableOrbit = false;
+        internal bool firstOrbiterUpdate = false;
         bool enablePan = false;
         int mouseX_Old = 0;
         int mouseY_Old = 0;
@@ -77,8 +78,8 @@ namespace Mouse_Orbit
             public float qw, qx, qy, qz;
             public void Reset()
             {
-                qw = 1;
-                qx = 0;
+                qw = 0.7071068f;
+                qx = -0.7071068f;
                 qy = 0;
                 qz = 0;
             }
@@ -316,7 +317,14 @@ namespace Mouse_Orbit
             mouseY_Old = mouseY;
             if (enableOrbit)
             {
+                
                 orbitStr = Get_Orbit(difX, difY);
+            }
+            else if(firstOrbiterUpdate)
+            {
+                firstOrbiterUpdate = false;
+                qGlobal = new Quaternion(0.7071068f, -0.7071068f, 0, 0);
+                orbitStr = new Orbit((float)(2 * Math.Acos(qGlobal.qw) * rad2Deg), qGlobal.qx, qGlobal.qy, qGlobal.qz);
             }
             else if (enablePan)
             {
