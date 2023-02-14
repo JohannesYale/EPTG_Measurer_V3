@@ -47,7 +47,7 @@ namespace Mouse_Orbit
         Vector3 vdMouse = new Vector3(0, 0, 0);
         float ortbitSensitivity = 0.2f;
         bool enableOrbit = false;
-        internal bool firstOrbiterUpdate = false;
+        public bool firstOrbiterUpdate = false;
         bool enablePan = false;
         int mouseX_Old = 0;
         int mouseY_Old = 0;

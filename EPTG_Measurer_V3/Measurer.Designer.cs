@@ -158,10 +158,9 @@
             // 
             // cBOkay
             // 
-            this.cBOkay.AutoSize = true;
-            this.cBOkay.Location = new System.Drawing.Point(90, 382);
+            this.cBOkay.Location = new System.Drawing.Point(90, 372);
             this.cBOkay.Name = "cBOkay";
-            this.cBOkay.Size = new System.Drawing.Size(51, 17);
+            this.cBOkay.Size = new System.Drawing.Size(51, 39);
             this.cBOkay.TabIndex = 13;
             this.cBOkay.Text = "Okay";
             this.cBOkay.UseVisualStyleBackColor = true;
@@ -170,10 +169,9 @@
             // 
             // cBHard
             // 
-            this.cBHard.AutoSize = true;
-            this.cBHard.Location = new System.Drawing.Point(171, 382);
+            this.cBHard.Location = new System.Drawing.Point(171, 370);
             this.cBHard.Name = "cBHard";
-            this.cBHard.Size = new System.Drawing.Size(49, 17);
+            this.cBHard.Size = new System.Drawing.Size(49, 41);
             this.cBHard.TabIndex = 12;
             this.cBHard.Text = "Hard";
             this.cBHard.UseVisualStyleBackColor = true;
@@ -182,10 +180,9 @@
             // 
             // cBEasy
             // 
-            this.cBEasy.AutoSize = true;
-            this.cBEasy.Location = new System.Drawing.Point(9, 382);
+            this.cBEasy.Location = new System.Drawing.Point(9, 379);
             this.cBEasy.Name = "cBEasy";
-            this.cBEasy.Size = new System.Drawing.Size(49, 17);
+            this.cBEasy.Size = new System.Drawing.Size(58, 25);
             this.cBEasy.TabIndex = 11;
             this.cBEasy.Text = "Easy";
             this.cBEasy.UseVisualStyleBackColor = true;
@@ -311,7 +308,7 @@
             // startTutorialToolStripMenuItem
             // 
             this.startTutorialToolStripMenuItem.Name = "startTutorialToolStripMenuItem";
-            this.startTutorialToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startTutorialToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.startTutorialToolStripMenuItem.Text = "Start Tutorial";
             this.startTutorialToolStripMenuItem.Click += new System.EventHandler(this.startTutorialToolStripMenuItem_Click);
             // 
@@ -349,9 +346,9 @@
             this.btnLoadSTL.Name = "btnLoadSTL";
             this.btnLoadSTL.Size = new System.Drawing.Size(75, 23);
             this.btnLoadSTL.TabIndex = 1;
-            this.btnLoadSTL.Text = "Load STL";
+            this.btnLoadSTL.Text = "Reset View";
             this.btnLoadSTL.UseVisualStyleBackColor = true;
-            this.btnLoadSTL.Click += new System.EventHandler(this.btnLoadSTL_Click);
+            this.btnLoadSTL.Click += new System.EventHandler(this.btnResetView_Click);
             // 
             // lblIFU
             // 

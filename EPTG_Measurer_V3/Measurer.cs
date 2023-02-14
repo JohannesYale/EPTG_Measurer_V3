@@ -16,6 +16,7 @@ using OpenTK.Graphics.OpenGL;
 using System.IO;
 using System.Xml.Linq;
 using System.Drawing.Imaging;
+using static Mouse_Orbit.Orbiter;
 
 namespace EPTG_Measurer_V3
 {
@@ -65,9 +66,10 @@ namespace EPTG_Measurer_V3
             GetImages(sender);
         }
 
-        private void btnLoadSTL_Click(object sender, EventArgs e)
+        private void btnResetView_Click(object sender, EventArgs e)
         {
-
+            orb.firstOrbiterUpdate = true;
+            orb.Reset_All();
         }
 
         private void pBFemur_MouseDown(object sender, MouseEventArgs e)

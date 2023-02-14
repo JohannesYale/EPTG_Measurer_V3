@@ -132,6 +132,7 @@ namespace EPTG_Measurer_V3
                 string model = filesModels.First(x => Path.GetFileName(x).Split('_')[0] == images[ImageIndex].Identifier);
                 ReadSelectedFile(model);
                 orb.firstOrbiterUpdate = true;
+              
             }
             catch(Exception ex)
             {
