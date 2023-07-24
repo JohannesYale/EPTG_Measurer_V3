@@ -30,11 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Measurer));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tPMeasurer = new System.Windows.Forms.TabPage();
             this.pBFemur = new System.Windows.Forms.PictureBox();
-            this.tPNormal = new System.Windows.Forms.TabPage();
-            this.pBNormal = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cBScreenshots = new System.Windows.Forms.CheckBox();
             this.cBOkay = new System.Windows.Forms.CheckBox();
@@ -58,70 +54,40 @@
             this.pnl4 = new System.Windows.Forms.Panel();
             this.btnLoadSTL = new System.Windows.Forms.Button();
             this.lblIFU = new System.Windows.Forms.Label();
-            this.tabControl1.SuspendLayout();
-            this.tPMeasurer.SuspendLayout();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tPMaxCurv = new System.Windows.Forms.TabPage();
+            this.pBMinCurv = new System.Windows.Forms.PictureBox();
+            this.tpMinCurv = new System.Windows.Forms.TabPage();
+            this.pBMaxCurv = new System.Windows.Forms.PictureBox();
+            this.tBISupport = new System.Windows.Forms.TabControl();
+            this.tPNormal = new System.Windows.Forms.TabPage();
+            this.pBNormal = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pBFemur)).BeginInit();
-            this.tPNormal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBNormal)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnl4.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tPMaxCurv.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBMinCurv)).BeginInit();
+            this.tpMinCurv.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBMaxCurv)).BeginInit();
+            this.tBISupport.SuspendLayout();
+            this.tPNormal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBNormal)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tPMeasurer);
-            this.tabControl1.Controls.Add(this.tPNormal);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(586, 644);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            // 
-            // tPMeasurer
-            // 
-            this.tPMeasurer.Controls.Add(this.pBFemur);
-            this.tPMeasurer.Location = new System.Drawing.Point(4, 22);
-            this.tPMeasurer.Name = "tPMeasurer";
-            this.tPMeasurer.Padding = new System.Windows.Forms.Padding(3);
-            this.tPMeasurer.Size = new System.Drawing.Size(578, 618);
-            this.tPMeasurer.TabIndex = 0;
-            this.tPMeasurer.Text = "Measure";
-            this.tPMeasurer.UseVisualStyleBackColor = true;
             // 
             // pBFemur
             // 
             this.pBFemur.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pBFemur.Location = new System.Drawing.Point(3, 3);
+            this.pBFemur.Location = new System.Drawing.Point(0, 0);
             this.pBFemur.Name = "pBFemur";
-            this.pBFemur.Size = new System.Drawing.Size(572, 612);
+            this.pBFemur.Size = new System.Drawing.Size(486, 428);
             this.pBFemur.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pBFemur.TabIndex = 0;
             this.pBFemur.TabStop = false;
             this.pBFemur.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pBFemur_MouseDown);
-            // 
-            // tPNormal
-            // 
-            this.tPNormal.Controls.Add(this.pBNormal);
-            this.tPNormal.Location = new System.Drawing.Point(4, 22);
-            this.tPNormal.Name = "tPNormal";
-            this.tPNormal.Padding = new System.Windows.Forms.Padding(3);
-            this.tPNormal.Size = new System.Drawing.Size(578, 618);
-            this.tPNormal.TabIndex = 1;
-            this.tPNormal.Text = "Normal Map";
-            this.tPNormal.UseVisualStyleBackColor = true;
-            // 
-            // pBNormal
-            // 
-            this.pBNormal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pBNormal.Location = new System.Drawing.Point(3, 3);
-            this.pBNormal.Name = "pBNormal";
-            this.pBNormal.Size = new System.Drawing.Size(572, 612);
-            this.pBNormal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pBNormal.TabIndex = 0;
-            this.pBNormal.TabStop = false;
             // 
             // panel1
             // 
@@ -141,9 +107,9 @@
             this.panel1.Controls.Add(this.lblImages);
             this.panel1.Controls.Add(this.btnImages);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1113, 0);
+            this.panel1.Location = new System.Drawing.Point(1653, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(251, 644);
+            this.panel1.Size = new System.Drawing.Size(251, 1041);
             this.panel1.TabIndex = 2;
             // 
             // cBScreenshots
@@ -288,9 +254,9 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(586, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(527, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1653, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -315,10 +281,9 @@
             // GL_Monitor
             // 
             this.GL_Monitor.BackColor = System.Drawing.Color.Black;
-            this.GL_Monitor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GL_Monitor.Location = new System.Drawing.Point(586, 87);
+            this.GL_Monitor.Location = new System.Drawing.Point(487, 87);
             this.GL_Monitor.Name = "GL_Monitor";
-            this.GL_Monitor.Size = new System.Drawing.Size(527, 557);
+            this.GL_Monitor.Size = new System.Drawing.Size(1166, 942);
             this.GL_Monitor.TabIndex = 5;
             this.GL_Monitor.VSync = false;
             this.GL_Monitor.Load += new System.EventHandler(this.GL_Monitor_Load);
@@ -335,14 +300,14 @@
             this.pnl4.Controls.Add(this.btnLoadSTL);
             this.pnl4.Controls.Add(this.lblIFU);
             this.pnl4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnl4.Location = new System.Drawing.Point(586, 25);
+            this.pnl4.Location = new System.Drawing.Point(0, 25);
             this.pnl4.Name = "pnl4";
-            this.pnl4.Size = new System.Drawing.Size(527, 62);
+            this.pnl4.Size = new System.Drawing.Size(1653, 62);
             this.pnl4.TabIndex = 1;
             // 
             // btnLoadSTL
             // 
-            this.btnLoadSTL.Location = new System.Drawing.Point(446, 39);
+            this.btnLoadSTL.Location = new System.Drawing.Point(1572, 33);
             this.btnLoadSTL.Name = "btnLoadSTL";
             this.btnLoadSTL.Size = new System.Drawing.Size(75, 23);
             this.btnLoadSTL.TabIndex = 1;
@@ -360,41 +325,135 @@
             this.lblIFU.TabIndex = 0;
             this.lblIFU.Text = "Please choose folder";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.pBFemur);
+            this.panel2.Location = new System.Drawing.Point(0, 87);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(486, 428);
+            this.panel2.TabIndex = 2;
+            // 
+            // tPMaxCurv
+            // 
+            this.tPMaxCurv.Controls.Add(this.pBMaxCurv);
+            this.tPMaxCurv.Location = new System.Drawing.Point(4, 22);
+            this.tPMaxCurv.Name = "tPMaxCurv";
+            this.tPMaxCurv.Padding = new System.Windows.Forms.Padding(3);
+            this.tPMaxCurv.Size = new System.Drawing.Size(473, 494);
+            this.tPMaxCurv.TabIndex = 1;
+            this.tPMaxCurv.Text = "Transition";
+            this.tPMaxCurv.UseVisualStyleBackColor = true;
+            // 
+            // pBMinCurv
+            // 
+            this.pBMinCurv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pBMinCurv.Location = new System.Drawing.Point(3, 3);
+            this.pBMinCurv.Name = "pBMinCurv";
+            this.pBMinCurv.Size = new System.Drawing.Size(467, 488);
+            this.pBMinCurv.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pBMinCurv.TabIndex = 0;
+            this.pBMinCurv.TabStop = false;
+            // 
+            // tpMinCurv
+            // 
+            this.tpMinCurv.Controls.Add(this.pBMinCurv);
+            this.tpMinCurv.Location = new System.Drawing.Point(4, 22);
+            this.tpMinCurv.Name = "tpMinCurv";
+            this.tpMinCurv.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMinCurv.Size = new System.Drawing.Size(473, 494);
+            this.tpMinCurv.TabIndex = 0;
+            this.tpMinCurv.Text = "Ridges";
+            this.tpMinCurv.UseVisualStyleBackColor = true;
+            // 
+            // pBMaxCurv
+            // 
+            this.pBMaxCurv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pBMaxCurv.Location = new System.Drawing.Point(3, 3);
+            this.pBMaxCurv.Name = "pBMaxCurv";
+            this.pBMaxCurv.Size = new System.Drawing.Size(467, 488);
+            this.pBMaxCurv.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pBMaxCurv.TabIndex = 0;
+            this.pBMaxCurv.TabStop = false;
+            // 
+            // tBISupport
+            // 
+            this.tBISupport.Controls.Add(this.tpMinCurv);
+            this.tBISupport.Controls.Add(this.tPMaxCurv);
+            this.tBISupport.Controls.Add(this.tPNormal);
+            this.tBISupport.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tBISupport.Location = new System.Drawing.Point(0, 0);
+            this.tBISupport.Name = "tBISupport";
+            this.tBISupport.SelectedIndex = 0;
+            this.tBISupport.Size = new System.Drawing.Size(481, 520);
+            this.tBISupport.TabIndex = 0;
+            this.tBISupport.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tPNormal
+            // 
+            this.tPNormal.Controls.Add(this.pBNormal);
+            this.tPNormal.Location = new System.Drawing.Point(4, 22);
+            this.tPNormal.Name = "tPNormal";
+            this.tPNormal.Padding = new System.Windows.Forms.Padding(3);
+            this.tPNormal.Size = new System.Drawing.Size(473, 494);
+            this.tPNormal.TabIndex = 2;
+            this.tPNormal.Text = "Normal";
+            this.tPNormal.UseVisualStyleBackColor = true;
+            // 
+            // pBNormal
+            // 
+            this.pBNormal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pBNormal.Location = new System.Drawing.Point(3, 3);
+            this.pBNormal.Name = "pBNormal";
+            this.pBNormal.Size = new System.Drawing.Size(467, 488);
+            this.pBNormal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pBNormal.TabIndex = 1;
+            this.pBNormal.TabStop = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.tBISupport);
+            this.panel3.Location = new System.Drawing.Point(0, 521);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(486, 520);
+            this.panel3.TabIndex = 6;
+            // 
             // Measurer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(1364, 644);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.GL_Monitor);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnl4);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.tabControl1);
             this.Name = "Measurer";
             this.Text = "Measurer";
             this.Load += new System.EventHandler(this.Measurer_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tPMeasurer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pBFemur)).EndInit();
-            this.tPNormal.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pBNormal)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.pnl4.ResumeLayout(false);
             this.pnl4.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.tPMaxCurv.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBMinCurv)).EndInit();
+            this.tpMinCurv.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBMaxCurv)).EndInit();
+            this.tBISupport.ResumeLayout(false);
+            this.tPNormal.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBNormal)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tPMeasurer;
-        private System.Windows.Forms.TabPage tPNormal;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -416,11 +475,19 @@
         private System.Windows.Forms.CheckBox cBHard;
         private System.Windows.Forms.CheckBox cBEasy;
         private System.Windows.Forms.PictureBox pBFemur;
-        private System.Windows.Forms.PictureBox pBNormal;
         private System.Windows.Forms.Panel pnl4;
         private System.Windows.Forms.Label lblIFU;
         private System.Windows.Forms.Button btnLoadSTL;
         private System.Windows.Forms.CheckBox cBScreenshots;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabPage tPMaxCurv;
+        private System.Windows.Forms.PictureBox pBMinCurv;
+        private System.Windows.Forms.TabPage tpMinCurv;
+        private System.Windows.Forms.PictureBox pBMaxCurv;
+        private System.Windows.Forms.TabControl tBISupport;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TabPage tPNormal;
+        private System.Windows.Forms.PictureBox pBNormal;
     }
 }
 

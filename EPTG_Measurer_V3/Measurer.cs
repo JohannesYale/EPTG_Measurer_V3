@@ -51,6 +51,8 @@ namespace EPTG_Measurer_V3
             if (process.CurrentState == ProcessState.Condyles)
             {
                 pBFemur.Image = images[ImageIndex].ShapeImage;
+                pBMinCurv.Image = images[ImageIndex].MinCurvImage;
+                pBMaxCurv.Image = images[ImageIndex].MaxCurvImage;
                 pBNormal.Image = images[ImageIndex].NormalImage;
                 LoadSTL();
                 lblImages.Text = "Image " + (ImageIndex + 1) + " of " + images.Count;
@@ -153,10 +155,10 @@ namespace EPTG_Measurer_V3
             cBOkay.Checked = false;
             cBHard.Checked = false;
 
-            string line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angle.ToString("N2") + ";" + DateTime.Now.ToString() + ";NaN;NaN;NaN;NaN;NaN;" + Environment.NewLine;
+            string line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angleEPTG.ToString("N2") + ";"+angleEPTP.ToString("N2")+";" + DateTime.Now.ToString() + ";NaN;NaN;NaN;NaN;NaN;" + Environment.NewLine;
             if (demo != null)
             {
-                line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angle.ToString("N2") + ";" + DateTime.Now.ToString() + ";" + demo.Age + ";" + demo.Gender + ";" + demo.Dysplastic + ";" + hard + ";" + txtComments.Text + ";" + Environment.NewLine;
+                line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angleEPTG.ToString("N2") + ";"+angleEPTP.ToString("N2")+";"+ DateTime.Now.ToString() + ";" + demo.Age + ";" + demo.Gender + ";" + demo.Dysplastic + ";" + hard + ";" + txtComments.Text + ";" + Environment.NewLine;
             }
             File.AppendAllText(directory + @"\MeasurementResult.txt", line);
             ImageIndex++;
@@ -177,7 +179,7 @@ namespace EPTG_Measurer_V3
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Redraw();
+           
         }
 
         private void startTutorialToolStripMenuItem_Click(object sender, EventArgs e)
