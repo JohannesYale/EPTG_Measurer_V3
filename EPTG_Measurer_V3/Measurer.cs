@@ -18,10 +18,14 @@ using System.Xml.Linq;
 using System.Drawing.Imaging;
 using static Mouse_Orbit.Orbiter;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace EPTG_Measurer_V3
 {
     public partial class Measurer : Form
     {
+       
+
         #region STLViewer Vars
         bool monitorLoaded = false;
         bool moveForm = false;
@@ -65,7 +69,14 @@ namespace EPTG_Measurer_V3
 
         private void btnImages_Click(object sender, EventArgs e)
         {
-            GetImages(sender);
+            using (ChooseStudyGroup studyGroupfrm = new ChooseStudyGroup())
+            {
+                if (studyGroupfrm.ShowDialog() == DialogResult.OK)
+                {
+                   
+                }
+            }
+         
         }
 
         private void btnResetView_Click(object sender, EventArgs e)
@@ -155,12 +166,12 @@ namespace EPTG_Measurer_V3
             cBOkay.Checked = false;
             cBHard.Checked = false;
 
-            string line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angleEPTG.ToString("N2") + ";"+angleEPTP.ToString("N2")+";" + DateTime.Now.ToString() + ";NaN;NaN;NaN;NaN;NaN;" + Environment.NewLine;
+            string line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angleEPTG.ToString("N2") + ";" + angleEPTP.ToString("N2") + ";" + DateTime.Now.ToString() + ";NaN;NaN;NaN;NaN;NaN;" + Environment.NewLine;
             if (demo != null)
             {
-                line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angleEPTG.ToString("N2") + ";"+angleEPTP.ToString("N2")+";"+ DateTime.Now.ToString() + ";" + demo.Age + ";" + demo.Gender + ";" + demo.Dysplastic + ";" + hard + ";" + txtComments.Text + ";" + Environment.NewLine;
+                line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angleEPTG.ToString("N2") + ";" + angleEPTP.ToString("N2") + ";" + DateTime.Now.ToString() + ";" + demo.Age + ";" + demo.Gender + ";" + demo.Dysplastic + ";" + hard + ";" + txtComments.Text + ";" + Environment.NewLine;
             }
-            File.AppendAllText(directory + @"\MeasurementResult.txt", line);
+            System.IO.File.AppendAllText(directory + @"\MeasurementResult.txt", line);
             ImageIndex++;
 
             txtComments.Text = "";
@@ -179,7 +190,7 @@ namespace EPTG_Measurer_V3
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void startTutorialToolStripMenuItem_Click(object sender, EventArgs e)
