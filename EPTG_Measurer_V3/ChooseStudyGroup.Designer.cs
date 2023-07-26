@@ -98,7 +98,6 @@
             gridViewCheckBoxColumn1.MinWidth = 31;
             gridViewCheckBoxColumn1.Name = "StudyFinished";
             gridViewCheckBoxColumn1.Width = 267;
-            gridViewTextBoxColumn3.DataType = typeof(System.Collections.Generic.ICollection<EPTG_Measurer_V3.Database.PatientStudyGroup>);
             gridViewTextBoxColumn3.EnableExpressionEditor = false;
             gridViewTextBoxColumn3.FieldName = "PatientStudyGroup";
             gridViewTextBoxColumn3.HeaderText = "PatientStudyGroup";
@@ -129,10 +128,7 @@
             this.panel1.Size = new System.Drawing.Size(823, 125);
             this.panel1.TabIndex = 1;
             // 
-            // studyGroupsBindingSource
-            // 
-            this.studyGroupsBindingSource.DataSource = typeof(EPTG_Measurer_V3.Database.StudyGroups);
-            // 
+
             // btnLoad
             // 
             this.btnLoad.Location = new System.Drawing.Point(635, 38);
