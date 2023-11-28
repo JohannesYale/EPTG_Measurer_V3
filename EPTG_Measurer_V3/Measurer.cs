@@ -34,6 +34,7 @@ namespace EPTG_Measurer_V3
         private const float kScaleFactor = 5.0f;
         #endregion
 
+
         public Measurer()
         {
             InitializeComponent();
@@ -50,12 +51,15 @@ namespace EPTG_Measurer_V3
         {
             if (process.CurrentState == ProcessState.Condyles)
             {
+
                 pBFemur.Image = images[ImageIndex].ShapeImage;
                 pBNormal.Image = images[ImageIndex].NormalImage;
+                pBRidge.Image = images[ImageIndex].RidgeImage;
+                pBTransition.Image = images[ImageIndex].TransitionImage;
+
                 LoadSTL();
                 lblImages.Text = "Image " + (ImageIndex + 1) + " of " + images.Count;
                 pBFemur.Refresh();
-                lblIFU.Text = "Click on the apex of the medial/lateral condyles (one point each).";
                 btnRestart.Visible = false;
                 btnSave.Visible = false;
             }
@@ -153,10 +157,10 @@ namespace EPTG_Measurer_V3
             cBOkay.Checked = false;
             cBHard.Checked = false;
 
-            string line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angle.ToString("N2") + ";" + DateTime.Now.ToString() + ";NaN;NaN;NaN;NaN;NaN;" + Environment.NewLine;
+            string line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angle.ToString("N2") + ";" + eptp.ToString("N2") + ";" + transitionscale.ToString("N2") + ";" + DateTime.Now.ToString() + ";NaN;NaN;NaN;NaN;NaN;" + Environment.NewLine;
             if (demo != null)
             {
-                line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angle.ToString("N2") + ";" + DateTime.Now.ToString() + ";" + demo.Age + ";" + demo.Gender + ";" + demo.Dysplastic + ";" + hard + ";" + txtComments.Text + ";" + Environment.NewLine;
+                line = images[ImageIndex].Identifier + ";" + tBEvaluator.Text + ";" + angle.ToString("N2") + ";" + eptp.ToString("N2") + ";" + transitionscale.ToString("N2") + ";" + DateTime.Now.ToString() + ";" + demo.Age + ";" + demo.Gender + ";" + demo.Dysplastic + ";" + hard + ";" + txtComments.Text + ";" + Environment.NewLine;
             }
             File.AppendAllText(directory + @"\MeasurementResult.txt", line);
             ImageIndex++;
@@ -177,12 +181,55 @@ namespace EPTG_Measurer_V3
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Redraw();
+            //Redraw();
         }
 
         private void startTutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Tutorial not implemented");
+        }
+        List<string> preExistingIdentifiers = new List<string>();
+
+        private void btnContinue_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new OpenFileDialog())
+            {
+                MessageBox.Show("Please select the meausrment file you want to append. Make sure that no old entries are in there. Measurements will only be conducted for IDs which are not wihtin the file.");
+                fbd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    string[] content = File.ReadAllLines(fbd.FileName);
+                    for (int i = 1;i < content.Length;i++)
+                    {
+                        preExistingIdentifiers.Add(content[i].Split(';')[0]);
+                    }
+
+                    MessageBox.Show(preExistingIdentifiers.Distinct().Count() + " unique Measurements found.");
+                }
+            }
+        }
+
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            angle = 0;
+            eptp = 0;
+            transitionscale = 0;
+
+            process.MoveNext(Command.Confirm);
+            process.MoveNext(Command.Confirm);
+            process.MoveNext(Command.Confirm);
+            process.MoveNext(Command.Confirm);
+            ImageIndex++;
+            process.MoveNext(Command.Confirm);
+            
+        }
+
+        private void btnSee_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(images[ImageIndex].Identifier);
         }
     }
 }

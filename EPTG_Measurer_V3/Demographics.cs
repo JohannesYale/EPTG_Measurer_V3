@@ -48,7 +48,8 @@ namespace EPTG_Measurer_V3
 
         internal Demographic GetDemographic(string identifier)
         {
-            return demographics.First(x => identifier.Contains(x.Identifier)); 
+       
+           return demographics.FirstOrDefault(x => identifier.Contains(x.Identifier)); 
         }
 
     }

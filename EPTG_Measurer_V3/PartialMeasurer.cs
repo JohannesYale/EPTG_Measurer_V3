@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using OpenTK;
+using STL_Tools;
 
 namespace EPTG_Measurer_V3
 {
@@ -22,11 +24,14 @@ namespace EPTG_Measurer_V3
         Point epiCondyle2;
         Point trochlea;
         Point endpoint;
+        Point transitionPoint;
         Point ridge1;
         Point ridge2;
         string directory;
         double slopeNormal;
         double angle;
+        double eptp;
+        double transitionscale;
         DemographicsGetter demographicsGetter;
 
         private enum ProcessDPIAwareness
@@ -43,6 +48,7 @@ namespace EPTG_Measurer_V3
         {
             try
             {
+                List<string> nonloaded = new List<string>();
                 using (var fbd = new FolderBrowserDialog())
                 {
                     DialogResult result = fbd.ShowDialog();
@@ -54,7 +60,7 @@ namespace EPTG_Measurer_V3
                         {
                             using (FileStream file = File.Create(directory + @"\MeasurementResult.txt"))
                             {
-                                string header = "FileName;Evaluator;Angle;TimeStamp;Age;Gender(0=female);Dysplastic(1=dysplastic);EaseOfIdentification(0easy,2hard);Comments;" + Environment.NewLine;
+                                string header = "FileName;Evaluator;EPTG;EPTP;TransitionScale;TimeStamp;Age;Gender(0=female);Dysplastic(1=dysplastic);EaseOfIdentification(0easy,2hard);Comments;" + Environment.NewLine;
                                 file.Write(Encoding.UTF8.GetBytes(header),
                                     0, Encoding.UTF8.GetByteCount(header));
                             }
@@ -62,6 +68,9 @@ namespace EPTG_Measurer_V3
                         }
                         string[] filesShape = Directory.GetFiles(Path.Combine(directory, "Shape"), "*.png");
                         string[] filesNormal = Directory.GetFiles(Path.Combine(directory, "Normal"), "*.png");
+                        string[] filesRidge = Directory.GetFiles(Path.Combine(directory, "Ridge"), "*.png");
+                        string[] filesTransition = Directory.GetFiles(Path.Combine(directory, "Transition"), "*.png");
+
                         int errors = 0;
                         foreach (string shape in filesShape)
                         {
@@ -70,13 +79,20 @@ namespace EPTG_Measurer_V3
                             try
                             {
                                 string normal = filesNormal.First(x => Path.GetFileName(x).Split('_')[0] == identifier);
-                                images.Add(new ImageObject(identifier, System.Drawing.Image.FromFile(shape), System.Drawing.Image.FromFile(normal)));
+                                string transition = filesTransition.First(x => Path.GetFileName(x).Split('_')[0] == identifier);
+                                string ridge = filesRidge.First(x => Path.GetFileName(x).Split('_')[0] == identifier);
+                                if (!preExistingIdentifiers.Contains(identifier))
+                                {
+                                    images.Add(new ImageObject(identifier, System.Drawing.Image.FromFile(shape), System.Drawing.Image.FromFile(normal), System.Drawing.Image.FromFile(ridge), System.Drawing.Image.FromFile(transition)));
+                                }
                             }
                             catch (Exception ex)
                             {
+                                nonloaded.Add(identifier);
                                 errors++;
                             }
                         }
+                        btnContinue.Visible = false;
                         if (errors > 0)
                         {
                             MessageBox.Show(errors.ToString() + " image(s) were not loaded.");
@@ -135,7 +151,7 @@ namespace EPTG_Measurer_V3
                     if (points.Count == 2)
                     {
                         Graphics g = pBFemur.CreateGraphics();
-                        Pen p = new Pen(Color.Blue);
+                        Pen p = new Pen(Color.Blue,2);
                         g.DrawLine(p, points[0], points[1]);
                         epiCondyle1 = points[0];
                         epiCondyle2 = points[1];
@@ -166,9 +182,10 @@ namespace EPTG_Measurer_V3
                             Point first = new Point(trochlea.X + 50, Convert.ToInt32(trochlea.Y + 1 / k * 50));
                             Point second = new Point(trochlea.X - 50, Convert.ToInt32(trochlea.Y - 1 / k * 50));
                             Graphics g = pBFemur.CreateGraphics();
-                            Pen p = new Pen(Color.Red);
+                            Pen p = new Pen(Color.Red,2);
                             g.DrawLine(p, first, second);
                             lblIFU.Text = "Click on the medial and lateral ridge (one point each)";
+                            tabControl1.SelectTab(0);
                             process.MoveNext(Command.Confirm);
                         }
                         catch
@@ -179,6 +196,7 @@ namespace EPTG_Measurer_V3
                     }
                     break;
                 case (ProcessState.Endoint):
+
                     if (points.Count < 2)
                     {
                         PictureBox pB = (PictureBox)sender;
@@ -195,17 +213,19 @@ namespace EPTG_Measurer_V3
                             ridge1 = points[0];
                             ridge2 = points[1];
                             Graphics g = pBFemur.CreateGraphics();
-                            Pen p = new Pen(Color.Red);
+                            Pen p = new Pen(Color.Green, 2);
                             g.DrawLine(p, endpoint, trochlea);
                             var slope = ((double)(endpoint.Y - trochlea.Y)) / ((double)(endpoint.X - trochlea.X));
                             angle = Math.Abs(Math.Atan((slopeNormal - slope) / (1 + slope * slopeNormal)) * 180 / Math.PI);
-                            lblIFU.Text = "Angle: " + angle.ToString("N2") + " degrees. Specify ease of identification and confirm.";
+                            lblIFU.Text = "Angle: " + angle.ToString("N2") + " degrees.";
                             cBEasy.Visible = true;
                             cBHard.Visible = true;
                             cBOkay.Visible = true;
+                            tabControl1.SelectTab(1);
                             process.MoveNext(Command.Confirm);
                             points.Clear();
-                            if(angle == double.NaN)
+                            btnNotTransition.Visible = true;
+                            if (angle == double.NaN)
                             {
                                 MessageBox.Show("Division through 0 occured (coincidence), please redo.");
                                 Restart();
@@ -218,8 +238,50 @@ namespace EPTG_Measurer_V3
                         }
                     }
                     break;
+                case (ProcessState.TransitionPoint):
+
+                    transitionPoint = new Point(e.Location.X, e.Location.Y);
+                    try
+                    {
+                        PictureBox pB = (PictureBox)sender;
+                        Graphics g = pB.CreateGraphics();
+                        Brush b = new SolidBrush(Color.Blue);
+                        DrawCircle(g, b, e.Location, 6);
+
+                        Pen p = new Pen(Color.Green);
+                        g.DrawLine(p, endpoint, transitionPoint);
+                        g.DrawLine(p, trochlea, transitionPoint);
+                        Vector2 transTroch = new Vector2(transitionPoint.X - trochlea.X, transitionPoint.Y - trochlea.Y);
+                        Vector2 transEndPoint = new Vector2(transitionPoint.X - endpoint.X, transitionPoint.Y - endpoint.Y);
+                        Vector2 trochEndpoint = new Vector2(endpoint.X - trochlea.X, endpoint.Y - trochlea.Y);
+                        eptp = Math.Acos(Vector2.Dot(Vector2.Normalize(transTroch), Vector2.Normalize(transEndPoint))) * 180 / Math.PI;
+                        double A = transTroch.Length;
+                        double B = transEndPoint.Length;
+                        double C = trochEndpoint.Length;
+                        transitionscale = A * B * Math.Sin(eptp / 180 * Math.PI) / Math.Pow(A + B + C, 2) * (2 + Math.Pow(Math.Sqrt(2), 2));
+                        lblIFU.Text += Environment.NewLine + "EPTP: " + eptp.ToString("N2") + "Degree." + Environment.NewLine + "Transitionscale: " + transitionscale.ToString("N2") + ".";
+                        btnNotTransition.Visible = false;
+                        process.MoveNext(Command.Confirm);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Division through zero occured, please try again.");
+                        Restart();
+                    }
+                    break;
             }
 
+        }
+        private void btnNotTransition_Click(object sender, EventArgs e)
+        {
+            if (process.CurrentState == ProcessState.TransitionPoint)
+            {
+                eptp = 175;
+                transitionscale = 0.05;
+                lblIFU.Text += Environment.NewLine + "EPTP: " + eptp.ToString("N2") + "Degree." + Environment.NewLine + "Transitionscale: " + transitionscale.ToString("N2") + ".";
+                process.MoveNext(Command.Confirm);
+                btnNotTransition.Visible = false;
+            }
         }
         void DrawCircle(Graphics g, Brush brush, Point center, float radius)
         {
@@ -311,15 +373,22 @@ namespace EPTG_Measurer_V3
     {
         internal System.Drawing.Image ShapeImage;
         internal System.Drawing.Image NormalImage;
+        internal System.Drawing.Image RidgeImage;
+        internal System.Drawing.Image TransitionImage;
+
         internal string Identifier;
-        public ImageObject(string filePath, System.Drawing.Image shapeImage, System.Drawing.Image normalImage)
+        public ImageObject(string filePath, System.Drawing.Image shapeImage, System.Drawing.Image normalImage, System.Drawing.Image ridgeImage, System.Drawing.Image transitionImage)
         {
             Identifier = filePath;
             ShapeImage = shapeImage;
             NormalImage = normalImage;
+            RidgeImage = ridgeImage;
+            TransitionImage = transitionImage;
         }
     }
-
-
 }
+
+
+
+
 
